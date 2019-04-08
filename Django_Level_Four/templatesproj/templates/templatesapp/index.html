@@ -1,0 +1,9 @@
+{% extends "templatesapp/base.html" %}
+  {% load myextras %}
+  {% block body_block %}
+    <ul class = "nodots">
+      <li><h1>Welcome to the Index Page!</h1></li>
+      <li><h2>This is the index.html page showing.</h2></li>
+      <li><h4>{{ text|cut:", World" }} {{ number|add:"22" }}</h4></li>
+    </ul>
+  {% endblock %}

@@ -1,0 +1,9 @@
+{% extends "templatesapp/base.html" %}
+  {% block body_block %}
+    <ul class = "nodots">
+      <li><h1>Welcome to Relative URL Template Page!</h1></li>
+      <li><h2><a href = "{% url 'index' %}">Link to the Index page ...</a></h2></li>
+      <li><h2><a href = "{% url 'templatesapp/other' %}">Link to the Other page ...</a></h2></li>
+      <li><h2><a href = "{% url 'admin:index' %}">Link to the Admin panel ...</a></h2></li>
+    </ul>
+    {% endblock %}

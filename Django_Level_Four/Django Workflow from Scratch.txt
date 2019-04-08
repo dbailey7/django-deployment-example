@@ -1,0 +1,85 @@
+Django Workflow from Scratch ...
+
+• doconda.bat
+  -- (myDjangoEnv) D:\django\django\Django_Level_Four>
+
+• Start project
+  -- django-admin startproject templatesproj
+
+• Change dir into the project folder
+  -- cd templatesproj
+
+• Start app
+  -- django-admin startapp templatesapp
+
+• Create templates folder
+  -- mkdir ~/templatesproj/templates
+
+• Create templates app folder
+  -- mkdir ~/templatesproj/templates/templatesapp
+
+• Update/modify settings.py
+  -- edit ~/templatesproj/templatesproj/settings.py
+  -- TEMPLATE_DIR = os.path.join('BASE_DIR', 'templates');
+  -- STATIC_DIR = os.path.join('BASE_DIR', 'static');
+  -- INSTALLED_APPS = ... 'templatesapp', ...
+  -- TEMPLATES = ... 'DIRS': [TEMPLATE_DIR, ], ...
+  -- DATABASES = ... 'ENGINE': 'django.db.backends.postgresql_psycopg2', ...
+  -- STATICFILES_DIRS = [ STATIC_DIR, ];
+
+• Create template files
+  -- ~/templatesproj/templates/templatesapp/index.html
+  -- ~/templatesproj/templates/templatesapp/other.html
+  -- ~/templatesproj/templates/templatesapp/relurltemplates.html
+  -- ~/templatesproj/templates/templatesapp/base.html
+
+• Add static registering to html files (just after <!DOCTYPE html> line)
+  -- {% load staticfiles %}
+
+• Setup/modify views.py
+  -- def index(request):
+       return render(request, 'templatesapp/indexhtml');
+  -- def other(request): ...
+  -- def relurltemplates(request): ...
+
+• Setup/modify proj urls.py
+  -- from templatesapp import views;
+  -- ... url(r'^$', views.index, name='index'), ...
+  -- ... url(r'^templatesapp', include('templatesapp.urls')), ...
+
+• Create app urls.py
+  -- from django.conf.urls import url;
+  -- from templatesapp import views;
+  -- app_name = 'templatesapp';
+  -- ... url(r'^relative/$', views.relative, name='relative'),
+  --     url(r'^other/$', views.other, name='other'), ...
+
+• Implement relative url template tagging relurltemplates.html
+  -- <h2><a href = "{% url 'templatesapp:other' %}">The Other Page</a></h2>
+  -- POTENTIAL ERROR: 'templatesapp:other' leave no spaces w/i the quotes!
+
+• Add the admin page as an anchor tag in relurltemplates.html
+  -- ... <a href = "{% url 'admin:index' %}">Link to Admin ...</a> ...
+  -- POTENTIAL ERROR: 'http://127.0.0.1:8000/templates/relative/' don't mispell the app name!
+
+• Another way to bring up the index page ...
+-- ... <a href = "{% url 'index' %}">Link to Index page ...</a> ...
+
+• Test 'em:
+  -- cd ~/templatesproj
+  -- python manage.py runserver
+  -- http://127.0.0.1:8000
+  -- http://127.0.0.1:8000/templatesapp/other/
+  -- http://127.0.0.1:8000/templatesapp/relative/
+
+• ERROR: The current path, % url 'templatesapp:other' %}, didn't match any of these.
+  -- s/b: href = "{% url 'templatesapp:other' %}" instead of href = "% url 'templatesapp:other' %}"
+
+
+• git stuff ...
+  -- echo "# django-deployment-example" >> README.md
+  -- git init
+  -- git add README.md
+  -- git commit -m "first commit"
+  -- git remote add origin https://github.com/dbailey7/django-deployment-example
+  -- git push -u origin master
